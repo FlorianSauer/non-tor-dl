@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -e
+
+echoerr() { echo "$@" 1>&2; }
+curl_url()
+{
+#    echo "curl" "$( echo $1 | sed 's/ /%20/g' )"
+    i=0
+    while [ $i -lt 5 ]
+    do
+        ((i++))
+        data=$(curl --user-agent "$USER_AGENT" -s $1)
+        if [ -n "$data" ]; then
+            break
+        fi
+        echoerr "Download attempt Number: $i failed"
+    done
+    if [ -z "$data" ]; then
+        echoerr "VAR is empty"
+        echoerr "no data received!"
+        exit 1
+    fi
+    echo $data
+}
+
+echo "This script has no use. It only prints the public ip and exits with 0"
+public_ip=$(curl_url http://ip.42.pl/raw)
+echo "Your public IP address appears to be:" $public_ip

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+if [ -z "$USER_AGENT" ]
+then
+    export USER_AGENT=$(youtube-dl --dump-user-agent)
+fi
+
+if [ ! -z "$download_rate" ]; then
+	export download_rate="-r $download_rate"
+fi
+youtube-dl -v --no-call-home -k $download_rate --user-agent "$USER_AGENT" --recode-video mp4 -f best $1

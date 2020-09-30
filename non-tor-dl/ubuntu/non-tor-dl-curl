@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+if [ -z "$USER_AGENT" ]
+then
+    export USER_AGENT=$(youtube-dl --dump-user-agent)
+fi
+
+if [ ! -z "$download_rate" ]; then
+	export download_rate="--limit-rate $download_rate"
+fi
+curl --user-agent "$USER_AGENT" $download_rate "$@"

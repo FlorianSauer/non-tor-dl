@@ -1,0 +1,13 @@
+version: '3.5'
+services:
+  non-tor-dl:
+    build:
+      context: non-tor-dl/ubuntu
+    environment:
+      USER_AGENT: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0"
+      # Maximum download rate in bytes per second (e.g. 50K or 4.2M)
+      download_rate: "2M"
+    volumes:
+      - ./env:/out:rw
+    env_file:
+      - .env

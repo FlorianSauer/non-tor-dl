@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+if [ -z "$USER_AGENT" ]
+then
+    export USER_AGENT=$(youtube-dl --dump-user-agent)
+fi
+
+youtube-dl -v --no-call-home --user-agent "$USER_AGENT" -F $1
